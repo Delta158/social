@@ -1,5 +1,7 @@
 # Social
 
+Web App to list activities taking places in different university societies, all in one place.
+
 This was a group project, i worked on backend functions related to user and accounts.
 
 ## Set Up
