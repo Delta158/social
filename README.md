@@ -1,5 +1,7 @@
 # Social
 
+This was a group project, i worked on backend functions related to user and accounts.
+
 ## Set Up
 
 If you are developing on anything other than GNU/Linux, I heartly recommend that you obtain access to a GNU/Linux machine, be that a VM or Kilburn machine, before starting to work on this project, just to save you from any more work than nessecary. The following commands are for a GNU/Linux machine.
