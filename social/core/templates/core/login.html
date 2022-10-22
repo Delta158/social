@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Log In{% endblock %}
+{% block imports %}
+<link rel="stylesheet" href={% static 'core/charles.css' %} />
+{% endblock %}
+
+<!-- Overrides header -->
+{% block search %}{% endblock %}
+
+{% block content %}
+<h1>Log In</h1>
+<div class="content-section">
+    <form method="post" class="card">
+        {% csrf_token %}
+        {{ form }}
+        <a href={% url 'signup' %}>Create account</a>
+        <a href={% url 'index' %}>Continue as guest</a>
+        <button type="submit">Login</button>
+    </form>
+</div>
+{% endblock %}

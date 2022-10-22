@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock title %}
+{% block imports %}
+<link rel="stylesheet" href={% static 'core/charles.css' %} />
+{% endblock %}
+
+{% block search %}{% endblock %}
+
+{% block content %}
+<h1>Create Account</h1>
+<div class="content-section">
+    <form method="post" class="card">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-outline-info" type="submit">Create Account</button>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Account? <a href={% url 'login' %}>Log In</a>
+        </small>
+    </div>
+</div>
+{% endblock %}

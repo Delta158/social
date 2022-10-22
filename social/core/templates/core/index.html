@@ -1,0 +1,103 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block imports %}
+<link rel="stylesheet" href={% static 'core/slideshow.css' %} />
+<link rel="stylesheet" href={% static 'core/index.css' %} />
+<link rel="stylesheet" href={% static 'core/card.css' %} />
+{% endblock %}
+
+{% block content %}
+<div id="slideshow-container">
+    {% for event in slideshow_event_list %}
+    {% if forloop.counter <= 5 %}
+    <div class="slideshow fade" id="slide{{ forloop.counter }}">
+        <img src={{ event.image.url }}>
+        <div class="slide-text-container" data-link="/event/{{ event.id }}">
+            <div class="slide-text">
+                <h1>{{ event.title }}</h1>
+                <a href="event/{{ event.id }}">Find out more...</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <div id="slide-button-container">
+        <a id="slide-prev">&#10094;</a>
+        <a id="slide-next">&#10095;</a>
+    </div>
+</div>
+
+<form class="search-form">
+    <input type="text" id="search-body" class="searchbox" name="search" placeholder="Search for events...">
+    <fieldset>
+        <legend>Sort by</legend>
+        <input type="radio" id="sort-choice-0" name="sort" value="title" />
+        <label for="sort-choice-0">Name - A &#8594 Z</label>
+        <input type="radio" id="sort-choice-1" name="sort" value="-title" />
+        <label for="sort-choice-1">Name - Z &#8594 A</label>
+
+        <input type="radio" id="sort-choice-2" name="sort" value="datetime" />
+        <label for="sort-choice-2">Date - Soonest first</label>
+        <input type="radio" id="sort-choice-3" name="sort" value="-datetime" />
+        <label for="sort-choice-3">Date - Latest first</label>
+
+        <input type="radio" id="sort-choice-4" name="sort" value="-attendance" checked/>
+        <label for="sort-choice-4">Interest - High &#8594 Low</label>
+        <input type="radio" id="sort-choice-5" name="sort" value="attendance" />
+        <label for="sort-choice-5">Interest - Low &#8594 High</label>
+    </fieldset>
+</form>
+
+<div id="events-container">
+    {% for event in page_obj %}
+    <div class="card" data-link="/event/{{ event.id }}">
+        <img src={{ event.image.url }} style="width:100%">
+        <div>
+            <h3>{{ event.title }}</h6>
+                <p>{{ event.datetime }}</p>
+                <p>
+                    {{ event.street }},
+                    {{ event.area }},
+                    {{ event.city }}
+                </p>
+                <p>{{ event.desc }}</p>
+
+                <div id="tags">
+                    {% for tag in event.tags %}
+                    <div class="tag">{{ tag }}</div>
+                    {% endfor %}
+                </div>
+
+                <p>Interested: {{ event.attendance }}</p>
+
+                <a href="/event/{{ event.id }}">Find out more...</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+        <span style="justify-content: flex-end;">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">&lsaquo; previous</a>
+        {% endif %}
+        </span>
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        <span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next &rsaquo;</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<script src={% static 'core/index.js' %}></script>
+<script src={% static 'core/card.js' %}></script>
+{% endblock %}
